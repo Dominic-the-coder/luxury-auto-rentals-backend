@@ -14,11 +14,11 @@ app.use(express.json());
 app.use(cors());
 
 // set a folder as a static path
-app.use("/uploads", express.static("uploads"));
+app.use("/api/uploads", express.static("uploads"));
 
 // connect to MongoDB
 mongoose
-  .connect("mongodb://127.0.0.1:27017/car_rental")
+  .connect(process.env.MONGODB_URL + "/car_rental")
   .then(() => {
     // if mongodb is successfully connected
     console.log("MongoDB is connected");
@@ -32,12 +32,12 @@ app.get("/", (req, res) => {
   res.send("Happy coding!");
 });
 
-app.use("/cars", require("./routes/car"));
-app.use("/categories", require("./routes/category"));
-app.use("/rents", require("./routes/rent"));
-app.use("/auth", require("./routes/user"));
-app.use("/payment", require("./routes/payment"));
-app.use("/image", require("./routes/image"));
+app.use("/api/cars", require("./routes/car"));
+app.use("/api/categories", require("./routes/category"));
+app.use("/api/rents", require("./routes/rent"));
+app.use("/api/auth", require("./routes/user"));
+app.use("/api/payment", require("./routes/payment"));
+app.use("/api/image", require("./routes/image"));
 
 // start the server
 app.listen(5555, () => {
